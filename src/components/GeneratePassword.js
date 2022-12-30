@@ -3,14 +3,11 @@ import { useState } from 'react';
 
 const generatePassword = (options) => {
     // Create a string of all the characters that are allowed
-    console.log("this is options inside generatePassword", options);
     let characters = '';
     if (options.uppercase) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     if (options.lowercase) characters += 'abcdefghijklmnopqrstuvwxyz';
     if (options.numbers) characters += '0123456789';
     if (options.symbols) characters += " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
-
-    console.log("this is characters inside generatePassword", characters);
 
     // Generate a random password of the specified length
     if (characters.length !== 0) {
@@ -19,8 +16,6 @@ const generatePassword = (options) => {
           const index = Math.floor(Math.random() * characters.length);
           password += characters[index];
         }
-    
-        console.log('this is password:', password);
         return password;  
     }
     else {
@@ -30,7 +25,7 @@ const generatePassword = (options) => {
 
 
 const PasswordOptions = () => {
-    const [password, setPassword] = useState('your password here');
+    const [password, setPassword] = useState('Click right bottom corner to generate a password');
 
     const [options, setOptions] = useState({
         length: 16,
@@ -40,6 +35,13 @@ const PasswordOptions = () => {
         symbols: true
     });
 
+    const [color, setColors] = useState({
+        uppercase: '#90EC65',
+        lowercase: '#90EC65',
+        numbers: '#90EC65',
+        symbols: '#90EC65'
+    })
+
     const toggleOptions = (option) => {
         setOptions(prevOptions => {
             return {
@@ -47,7 +49,15 @@ const PasswordOptions = () => {
               [option]: !prevOptions[option]
             };
         });
+        setColors(prevColors => {
+            return {
+              ...prevColors,
+              [option]: (prevColors[option] === '#90EC65') ? 'white' : '#90EC65'
+            };
+        });
     }
+
+
 
     const handleLengthChange = event => {
         setOptions({
@@ -69,31 +79,48 @@ const PasswordOptions = () => {
                 <ul>
                     <li>
                         <div>Uppercase</div>
-                        <button onClick={() => toggleOptions('uppercase')}>x</button>
+                        <button style={{ backgroundColor: color.uppercase }} onClick={() => toggleOptions('uppercase')}>
+                            <span className="material-symbols-outlined">
+                            check
+                            </span>
+                        </button>
                     </li>
                     <li>
                         <div>Lowercase</div>
-                        <button onClick={() => toggleOptions('lowercase')}>x</button>
+                        <button style={{ backgroundColor: color.lowercase }} onClick={() => toggleOptions('lowercase')}>
+                            <span className="material-symbols-outlined">
+                            check
+                            </span>
+                        </button>
                     </li>
                     <li>
                         <div>Numbers</div>
-                        <button onClick={() => toggleOptions('numbers')}>x</button>
+                        <button style={{ backgroundColor: color.numbers }} onClick={() => toggleOptions('numbers')}>
+                            <span className="material-symbols-outlined">
+                            check
+                            </span>
+                        </button>
                     </li>
                     <li>
                         <div>Symbols</div>
-                        <button onClick={() => toggleOptions('symbols')}>x</button>
-                    </li>
-                    <li>
-                        <div>Generate Password</div>
-                        <button onClick={handleClick}>x</button>
-                    </li>
-                    <li>
-                        <label className="length-input">
-                            Length:
-                            <input type="number" value={options.length} onChange={handleLengthChange} />
-                        </label>
+                        <button style={{ backgroundColor: color.symbols }} onClick={() => toggleOptions('symbols')}>
+                            <span className="material-symbols-outlined">
+                            check
+                            </span>
+                        </button>
                     </li>
                 </ul>
+                <div className="second-options">
+                    <label className="length-input">
+                        Length:
+                        <input type="number" value={options.length} onChange={handleLengthChange} />
+                    </label>
+                    <button onClick={handleClick} className="renew">
+                        <span className="material-symbols-outlined">
+                        autorenew
+                        </span>
+                    </button>
+                </div>
             </div>
         </>
     )

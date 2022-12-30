@@ -7,7 +7,6 @@
 
 .App {
   text-align: center;
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: 'Outfit', sans-serif;
@@ -17,9 +16,13 @@
   align-items: center;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .passwd-gen-window {
   min-height: max-content;
-  max-width: 50em;
+  width: clamp(300px, 700px, 700px);
   margin: auto;
   display: flex;
   flex-direction: column;
