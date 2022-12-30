@@ -30,7 +30,7 @@ const generatePassword = (options) => {
 
 
 const PasswordOptions = () => {
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('your password here');
 
     const [options, setOptions] = useState({
         length: 16,
@@ -62,7 +62,8 @@ const PasswordOptions = () => {
     }
 
     return (
-        <>
+        <>  
+            <h1>Password Generator</h1>
             <div className="passwd-ready">{ password }</div>
             <div className="passwd-options">
                 <ul>
